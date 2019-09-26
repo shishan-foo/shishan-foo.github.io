@@ -5,3 +5,4 @@ title: Shi Shan Foo
 description: Full Stack, Cloud, AI and Cats
 logo: "assets/img/cat.png"
 permalink: /:categories/:year/:month/:day/:title:output_ext
+author: Shi Shan
