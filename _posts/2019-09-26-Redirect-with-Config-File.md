@@ -10,7 +10,7 @@ tags: [Azure, cloud, redirect]
 There are two websites, one for desktop and another lite version for mobile devices.
 To switch between these two websites seamlessly, I decide to use redirect action in the web.config file, which can avoid rendering content before redirect.
 
-
+<br/>
 
 ### Plan
 #### Desktop Website Auto Redirect
@@ -50,9 +50,9 @@ Translate it to ASP.NET
 #### Mobile Website
 No changes need to be made.
 
+<br/>
 
-
-### Challenge1:
+### Challenge 1:
 Cannot detect HTTP_REFERER correctly
 ### Reason:
 Only https websites can be detected at HTTP_REFERER. <br/>
@@ -63,8 +63,9 @@ Check at this [link](https://tools.ietf.org/html/rfc7231#section-5.5.2)
 ### Solution:
 Enable https only on Azure setting for Desktop Website
 
+<br/>
 
-### Challenge2:
+### Challenge 2:
 Empty Page shown with CORB warning when switching back to desktop website form mobile site.
 ### Solution:
 Avoid auto redirect for all the static files
@@ -97,7 +98,8 @@ Avoid auto redirect for all the static files
 </system.webServer>`
 
 ~~~
+<br/>
 
 ### Final Thoughts
-The method is easy to understand, but need some foundation of HTTP and .NET
+The method is easy to understand, but need some foundation knowledge of HTTP and .NET.
 I got stuck on this redirect thing for quite a while. For me, this is a lesson of basic. :)
