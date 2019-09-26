@@ -1,3 +1,9 @@
 theme: jekyll-theme-minimal
 name: Shi Shan
 markdown: kramdown
+title: Shi Shan Foo
+description: Full Stack, Cloud, AI and... <br/> sometimes Anime and Cats
+logo: "assets/img/cat_logo.jpg"
+permalink: /:categories/:year/:month/:day/:title:output_ext
+author: Shi Shan
+

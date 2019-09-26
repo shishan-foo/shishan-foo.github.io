@@ -1,0 +1,17 @@
+---
+---
+
+@import "{{ site.theme }}";
+header li{
+  width: 100%;
+  border: none;
+}
+
+header ul{
+  border: none;
+  background: none;
+}
+
+header ul a{
+  text-align: left;
+}
