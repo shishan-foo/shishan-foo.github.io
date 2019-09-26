@@ -2,23 +2,24 @@
 layout: post
 title: "Redirect With Web.config File"
 date: 2019-09-26
+tags: [Azure, cloud, redirect]
 ---
 
 
-##Background
+## Background
 There are two websites, one for desktop and another lite version for mobile devices.
 To switch between these two website seamlessly without rendering its content, I decide to use Redirect in the web.config file.
 
 
-##Plan
-###Desktop Site Auto Redirect
+## Plan
+### Desktop Site Auto Redirect
 
-- Desktop Website will redirect when:
-1. The device is a mobile device
-AND
+- Desktop Website only auto redirect to the Mobile Website when:
+1. The device is a mobile device <br/>
+**AND**
 2. Resources is **not** requested by the mobile website
 
-Translate the above to ASP.NET
+Translate it to ASP.NET
 
 
 ```markdown
@@ -46,16 +47,16 @@ Translate the above to ASP.NET
 
   </system.webServer>`
 
-···
+```
 
 
 
-##Challenge1: only https websites can be redirected
+## Challenge1: only https websites can be redirected
 
 
-##Challenge2: disable auto redirect for all static files
+## Challenge2: disable auto redirect for all static files
 
 
-##Final Thoughts:
+## Final Thoughts:
 
-##Resources:
+## Resources:
