@@ -8,7 +8,8 @@ tags: [Azure, cloud, redirect]
 
 ### Target
 There are two websites, one for desktop and another lite version for mobile devices.
-To switch between these two websites seamlessly, I decide to use redirect action in the web.config file, which can avoid rendering any content before redirect.
+To switch between these two websites seamlessly, I decide to use redirect action in the web.config file, which can avoid rendering content before redirect.
+
 
 
 ### Plan
@@ -45,17 +46,20 @@ Translate it to ASP.NET
 </system.webServer>`
 
 ~~~
+
 #### Mobile Website
 No changes need to be made.
+
 
 
 ### Challenge1:
 Cannot detect HTTP_REFERER correctly
 ### Reason:
-> [!TIP]
-> Only https websites can be detected at HTTP_REFERER. <br/>
-_A user agent MUST NOT send a Referer header field in an unsecured HTTP request if the referring page was received with a secure protocol._
-See at this [link] (https://tools.ietf.org/html/rfc7231#section-5.5.2)
+Only https websites can be detected at HTTP_REFERER. <br/>
+>_A user agent MUST NOT send a Referer header field in an unsecured HTTP request if the referring page was received with a secure protocol._
+
+Check at this [link](https://tools.ietf.org/html/rfc7231#section-5.5.2)
+
 ### Solution:
 Enable https only on Azure setting for Desktop Website
 

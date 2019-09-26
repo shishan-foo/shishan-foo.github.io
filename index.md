@@ -1,6 +1,12 @@
 ## Welcome to Shi Shan's Playground
 
-I put personal learnings and insights at this playground for myself reference and, of course, for developers who may need. :)
+I put personal learning and project insight here. :) <br/>
+I like creating things that work.
+
+<br/><br/>
+
+
+
 
 
 ## Contact Me
