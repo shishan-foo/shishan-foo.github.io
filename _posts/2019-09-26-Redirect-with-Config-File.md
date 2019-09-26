@@ -8,13 +8,13 @@ tags: [Azure, cloud, redirect]
 
 ### Target
 There are two websites, one for desktop and another lite version for mobile devices.
-To switch between these two websites seamlessly and fast, I decide to use redirect action in the web.config file to avoid rendering the content.
+To switch between these two websites seamlessly, I decide to use redirect action in the web.config file, which can avoid rendering any content before redirect.
 
 
 ### Plan
 #### Desktop Website Auto Redirect
 Desktop Website only auto redirect to the Mobile Website when:
-1. The device is a mobile device <br/>
+1. The device is a **mobile** device <br/>
 **AND**
 2. Resources is **not** requested by the mobile website
 
@@ -22,8 +22,7 @@ Translate it to ASP.NET
 
 
 ~~~markdown
-
-<system.webServer>
+`<system.webServer>
 
     <rewrite>
       <rules>
@@ -43,29 +42,32 @@ Translate it to ASP.NET
       </rules>
     </rewrite>
 
-</system.webServer>
+</system.webServer>`
 
 ~~~
 #### Mobile Website
 No changes need to be made.
 
 
-### Challenge1: Cannot detect HTTP_REFERER correctly
+### Challenge1:
+Cannot detect HTTP_REFERER correctly
 ### Reason:
-Only https websites can be detected at HTTP_REFERER
-_A user agent MUST NOT send a Referer header field in an unsecured HTTP request if the referring page was received with a secure protocol._ See at this [link] (https://tools.ietf.org/html/rfc7231#section-5.5.2)
+> [!TIP]
+> Only https websites can be detected at HTTP_REFERER. <br/>
+_A user agent MUST NOT send a Referer header field in an unsecured HTTP request if the referring page was received with a secure protocol._
+See at this [link] (https://tools.ietf.org/html/rfc7231#section-5.5.2)
 ### Solution:
 Enable https only on Azure setting for Desktop Website
 
 
-### Challenge2: Empty Page shown with CORB warning when switching back to desktop website form mobile site.
+### Challenge2:
+Empty Page shown with CORB warning when switching back to desktop website form mobile site.
 ### Solution:
 Avoid auto redirect for all the static files
 
 
 ~~~markdown
-
-<system.webServer>
+`<system.webServer>
 
     <rewrite>
       <rules>
@@ -88,7 +90,7 @@ Avoid auto redirect for all the static files
       </rules>
     </rewrite>
 
-</system.webServer>
+</system.webServer>`
 
 ~~~
 
