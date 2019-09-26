@@ -1,20 +1,19 @@
 ---
 layout: post
-title: "Redirect With Web.config File"
+title: "Redirect With Web.config"
 date: 2019-09-26
 tags: [Azure, cloud, redirect]
 ---
 
 
-## Background
+### Target
 There are two websites, one for desktop and another lite version for mobile devices.
-To switch between these two website seamlessly without rendering its content, I decide to use Redirect in the web.config file.
+To switch between these two websites seamlessly and fast, I decide to use redirect action in the web.config file to avoid rendering the content.
 
 
-## Plan
-### Desktop Site Auto Redirect
-
-- Desktop Website only auto redirect to the Mobile Website when:
+### Plan
+#### Desktop Website Auto Redirect
+Desktop Website only auto redirect to the Mobile Website when:
 1. The device is a mobile device <br/>
 **AND**
 2. Resources is **not** requested by the mobile website
@@ -22,9 +21,8 @@ To switch between these two website seamlessly without rendering its content, I 
 Translate it to ASP.NET
 
 
-```markdown
+~~~markdown
 
-`  
 <system.webServer>
 
     <rewrite>
@@ -36,7 +34,7 @@ Translate it to ASP.NET
 
                 <conditions logicalGrouping="MatchAll" trackAllCaptures="true">
                     <add input="{HTTP_USER_AGENT}" pattern="midp|mobile|phone" />
-                    <add input="{HTTP_REFERER}" negate="true" pattern="^(.*)reserve-mobile(.*)" />         
+                    <add input="{HTTP_REFERER}" negate="true" pattern="^(.*)your-mobile-site(.*)" />         
                 </conditions>
                 <action type="Redirect" url="https://your-mobile-site" appendQueryString="false" redirectType="Permanent" />
 
@@ -45,18 +43,55 @@ Translate it to ASP.NET
       </rules>
     </rewrite>
 
-  </system.webServer>`
+</system.webServer>
 
-```
-
-
-
-## Challenge1: only https websites can be redirected
+~~~
+#### Mobile Website
+No changes need to be made.
 
 
-## Challenge2: disable auto redirect for all static files
+### Challenge1: Cannot detect HTTP_REFERER correctly
+### Reason:
+Only https websites can be detected at HTTP_REFERER
+_A user agent MUST NOT send a Referer header field in an unsecured HTTP request if the referring page was received with a secure protocol._ See at this [link] (https://tools.ietf.org/html/rfc7231#section-5.5.2)
+### Solution:
+Enable https only on Azure setting for Desktop Website
 
 
-## Final Thoughts:
+### Challenge2: Empty Page shown with CORB warning when switching back to desktop website form mobile site.
+### Solution:
+Avoid auto redirect for all the static files
 
-## Resources:
+
+~~~markdown
+
+<system.webServer>
+
+    <rewrite>
+      <rules>
+
+      <rule name="Auto Redirect" patternSyntax="ECMAScript" stopProcessing="true">
+
+                <match url=".*" ignoreCase="true"  />
+
+                <conditions logicalGrouping="MatchAll" trackAllCaptures="true">
+                    <add input="{HTTP_USER_AGENT}" pattern="midp|mobile|phone" />
+                    <add input="{HTTP_REFERER}" negate="true" pattern="^(.*)your-mobile-site(.*)" />
+                    <add input="{REQUEST_URI}" negate="true" pattern="^/img/your-image.png$" ignoreCase="true" />
+                    <add input="{REQUEST_URI}" negate="true" pattern="^/static/js/your-js-chunk.chunk.js$" ignoreCase="true" />
+                    <add input="{REQUEST_URI}" negate="true" pattern="^/static/css/your-css-chunk.chunk.css$" ignoreCase="true" />            
+                </conditions>
+                <action type="Redirect" url="https://your-mobile-site" appendQueryString="false" redirectType="Permanent" />
+
+      </rule>
+
+      </rules>
+    </rewrite>
+
+</system.webServer>
+
+~~~
+
+### Final Thoughts
+The method is easy to understand, but need some foundation of HTTP and .NET
+I got stuck on this redirect thing for quite a while. For me, this is a lesson of basic. :)
