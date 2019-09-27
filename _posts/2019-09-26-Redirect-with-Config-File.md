@@ -2,7 +2,7 @@
 layout: post
 title: "Redirect With Web.config"
 date: 2019-09-26
-tags: [Azure, cloud, redirect]
+tags: [Azure, cloud]
 ---
 
 
